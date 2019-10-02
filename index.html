@@ -15,11 +15,33 @@
 
     <div class="container">
         <button id="import" class="btn btn-primary m-3">Importar Películas</button>
-        <div class="row d-flex justify-content-start card-container">
-
+        <div id="movies-container" class="row d-flex justify-content-start card-container"></div>
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a id="previus" class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link page" href="#">1</a></li>
+            <li class="page-item"><a class="page-link page" href="#">2</a></li>
+            <li class="page-item"><a class="page-link page" href="#">3</a></li>
+            <li class="page-item">
+                <a id="next" class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+    <!--Handlebars-->
+    <script id="movies" type="text/x-handlebars-template">
+    {{#each results}}
+    <div class="card m-3" style = "max-width: 18rem;">
+        <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{original_title}}</h5>
+            <p class="card-text">{{overview}}</p>
         </div>
     </div>
-
+    {{/each}}
+    </script>
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -30,7 +52,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-    <script src="js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.0/handlebars.js"></script>
+    <script src="js/appPromises.js"></script>
+
+
 </body>
 
 </html>
