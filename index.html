@@ -22,7 +22,7 @@
                 </a>
                 <div class="d-flex align-items-center">
                     <span class="text-white pr-3 d-md-none d-lg-inline"> The best </span>
-                    <button type="button" class=" btn  btn-outline-light btn-sm d-none d-lg-block">Favorites</button>
+                    <button id='favorites' type="button" class=" btn  btn-outline-light btn-sm ">Favorites</button>
                     <button class="  navbar-toggler d-lg-none" type="button" data-toggle="collapse"
                         data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -116,9 +116,10 @@
                  </div>
                     <p class="card-text"><small class="text-muted">{{overview}}</small>
                     </p>
-                    <div class="d-flex justify-content-between">
+                    
+                    <div class="d-flex justify-content-between" data-page="{{../this.data.page}}" >
                             <button type="button" id="{{id}}" class=" btn  btn-outline-primary btn-sm trailer "  >Trailer</button>
-                            <a href="#"><i class="fa fa-heart" aria-hidden="true"> </i> Favorites</a>
+                            <a  class="favorites" href="#"><i class="fa fa-heart" aria-hidden="true"> </i> Favorites</a>
                     </div>
                 </div>
             </div>

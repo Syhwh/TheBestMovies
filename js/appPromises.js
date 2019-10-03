@@ -42,11 +42,11 @@ const displayMovie = (data,genre) => {
     //       })
     // });
 
-    
+    //const results=data.results;    
 
     const source = $("#movies").html();
     const template = Handlebars.compile(source);
-    const context={data, genre}
+    const context={data}
     const generatedHtml = template(context);
     $("#movies-container").html(generatedHtml)   
     
@@ -78,6 +78,9 @@ const importMovies = () => {
 
 }
 
+
+
+
 importMovies()
 //$("#import").on("click", importMovies);
 
@@ -107,3 +110,75 @@ $('#movies-container').on('click','.trailer', function (e) {
    
     
 })
+
+$('#movies-container').on('click','.favorites',function(e){
+    $(e.currentTarget).toggleClass('saved')
+    const id=$(e.currentTarget).parent().children(':first-child').attr('id')
+    const page=parseInt($(e.currentTarget).parent().attr('data-page'))
+    
+    usingLocalStorage(page,id)
+    //saveFavorite(page,id)
+})
+
+
+
+const saveFavorite=(page,id)=>{
+    fetchMovies(page)
+    .then(data => {
+        const object =  data.results.find( (obj) =>{ return obj.id == id; })
+        localStorage.setItem(id,JSON.stringify(object))        
+    }    
+    )}  
+
+
+
+
+    const usingLocalStorage =(page,id)=>{
+        const keys = Object.keys(localStorage)
+        console.log()
+         if (keys.includes(id)){
+            localStorage.removeItem(id);
+         } else{
+            saveFavorite(page,id)
+         }
+         
+
+    }
+
+
+
+    const displayFavorites = (data) => {
+       
+        const source = $("#movies").html();
+        const template = Handlebars.compile(source);
+        const context={data}
+        const generatedHtml = template(context);
+        $("#movies-container").html(generatedHtml)   
+   
+    }
+
+$('#favorites').on('click', function(){
+    updateFavorites()
+        
+    })
+
+   const updateFavorites=()=>{
+    const data={data:allStorage()}
+       
+    displayFavorites(data.data)
+   } 
+
+    function allStorage() {
+        var values = [],
+            keys = Object.keys(localStorage),
+            i = keys.length;    
+        while ( i-- ) {
+            values.push( JSON.parse(localStorage.getItem(keys[i])) );
+        }    
+        data={
+            results:values
+        }
+        return data;
+    }
+
+    
