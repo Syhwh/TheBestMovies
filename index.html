@@ -8,14 +8,38 @@
     <title>Las Mejores Películas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/05471482dd.js"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
 
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+            <div class="container d-flex justify-content-between">
+                <a href="#" class="navbar-brand d-flex align-items-center">
+                    <strong>Movies</strong>
+                </a>
+                <div class="d-flex align-items-center">
+                    <span class="text-white pr-3 d-md-none d-lg-inline"> The best </span>
+                    <button type="button" class=" btn  btn-outline-light btn-sm d-none d-lg-block">Favorites</button>
+                    <button class="  navbar-toggler d-lg-none" type="button" data-toggle="collapse"
+                        data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon "></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
     <div class="container">
-        <button id="import" class="btn btn-primary m-3">Importar Películas</button>
-        <div id="movies-container" class="row d-flex justify-content-start card-container"></div>
+        <div class="row ">
+            <div class="col-12 mt-3 d-flex justify-content-between  ">
+                <div id="movies-container" class="row"></div>
+            </div>
+        </div>
     </div>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
@@ -30,18 +54,92 @@
             </li>
         </ul>
     </nav>
+
+    <!--MODAL-->
+
+    <!-- Modal -->
+<div  class="modal fade" id="trailerModal" tabindex="-1" role="dialog" aria-labelledby="trailerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" >
+          <div class="modal-content" >
+            <div class="modal-header">
+              <h5 class="modal-title" id="trailerModalLabel">Trailer</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div  class='videoPlayer' >
+             lol
+            </div>
+           
+          </div>
+        </div>
+      </div>
+
+
     <!--Handlebars-->
     <script id="movies" type="text/x-handlebars-template">
-    {{#each results}}
-    <div class="card m-3" style = "max-width: 18rem;">
-        <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{original_title}}</h5>
-            <p class="card-text">{{overview}}</p>
+    {{#each data.results}}
+    <div class="card col-6 mb-3"  data-id={{id}} >
+        <div class="row ">
+            <div class="col-md-4">
+                <img src="https://image.tmdb.org/t/p/w500/{{poster_path}}" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{original_title}} </h5>
+                    <div class=" text-muted d-flex justify-content-around mt-1 mb-1 subtitle" >  <span>duration</span> | <span>{{release_date}}</span> | <span>{{original_language}}</span>  </div>
+                    <div class=" dflex direction-row">
+                        <span>Ratings: 
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
+                    </span><span>{{vote_average}}</span> </div>                    
+                 <div id="genres">                        
+                    {{genre_ids}} 
+                    
+                    <!-- {{#each  ../this.results.genre_ids}}
+                       
+                          
+                        {{#if ../this.results.genre_ids  }}
+                        {{#each ../this.genre.genres}}
+                        <div id="" class="pt-1 pb-1">
+                                <span class="badge badge-warning ">{{../this.genre.genres}}</span>
+                            </div>
+                            {{/each}}
+                        {{/if}}
+                        
+                          
+                        {{/each}} -->
+    
+                 </div>
+                    <p class="card-text"><small class="text-muted">{{overview}}</small>
+                    </p>
+                    <div class="d-flex justify-content-between">
+                            <button type="button" id="{{id}}" class=" btn  btn-outline-primary btn-sm trailer "  >Trailer</button>
+                            <a href="#"><i class="fa fa-heart" aria-hidden="true"> </i> Favorites</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     {{/each}}
     </script>
+
+    <script id="genre" type="text/x-handlebars-template">
+        <div id="s" class="generos">
+            {{#each genres}}
+                <div id="" class="pt-1 pb-1">
+                <span class="badge badge-warning ">{{name}}</span>
+                <span class="badge badge-secondary">Sport</span>
+                </div>
+                {{/each}}
+        </div>
+       
+ </script>
+
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
